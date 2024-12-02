@@ -6,6 +6,16 @@ export default {
   ],
   theme: {
     extend: {},
+    debugScreens: {
+      position: ['top', 'left'],
+      style: {
+        backgroundColor: '#ffffff03',
+        boxShadow: 'none',
+        color: 'black',
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-debug-screens'),
+  ],
 }
