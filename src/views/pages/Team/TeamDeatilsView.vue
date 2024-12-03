@@ -18,7 +18,6 @@ pokemonStore.getEvolutionChain(77)
 
 <template>
   <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonStore.pokemonDetail.id}.png`" alt="">
-  {{route.params.id}}
   <div><span class="font-bold">name: </span>{{pokemonStore.pokemonDetail.name}}</div>
   <div class="font-bold">type:</div>
   <div v-for="pokemonType in pokemonStore.pokemonDetail.types">
@@ -41,7 +40,7 @@ pokemonStore.getEvolutionChain(77)
   <div v-for="evolution in pokemonStore.evolutionChain.chain.evolves_to">
     {{ evolution.species.name }}
     <span v-for="subEvolution in evolution.evolves_to">
-      > {{ subEvolution.species.name }}
+    > {{ subEvolution.species.name }}
     </span>
   </div>
 </template>

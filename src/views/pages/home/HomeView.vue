@@ -91,6 +91,7 @@
         <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.entry_number}.png`" alt="">
         #{{ pokemon.entry_number }}
         {{ pokemon.pokemon_species.name }}
+        <div @click="pokemonStore.addPokemonToTeam(pokemon.entry_number)">Add to my team</div>
       </div>
     </template>
   </div>

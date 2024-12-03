@@ -6,7 +6,7 @@ const pokedex = {
   get: (type: string) => axios.get(`${baseApiUrl}/pokedex/${type}`)
 }
 const pokemon = {
-  one: (name: string) => axios.get(`${baseApiUrl}/pokemon/${name}`),
+  one: (name: string | number) => axios.get(`${baseApiUrl}/pokemon/${name}`),
 }
 const pokemonSpecies = {
   one: (idOrName: string | number) => axios.get(`${baseApiUrl}/pokemon-species/${idOrName}`),

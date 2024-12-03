@@ -42,6 +42,7 @@ export const usePokemonStore = defineStore("pokemon", () => {
     chain: {},
     id: 0,
   })
+  let myPokemonTeam = ref([])
 
   function getPokemonList(type: string) {
     pokeApi.pokedex.get(type).then((response: any) => {
@@ -57,7 +58,6 @@ export const usePokemonStore = defineStore("pokemon", () => {
       console.error(err)
     })
   }
-
   function getPokemonSpecies(idOrName: string | number) {
     pokeApi.pokemonSpecies.one(idOrName).then((response: any) => {
       pokemonSpecies.value = response.data
@@ -65,7 +65,6 @@ export const usePokemonStore = defineStore("pokemon", () => {
       console.error(err)
     })
   }
-
   function getEvolutionChain(id: number) {
     pokeApi.evolutionChain.one(id).then((response: any) => {
       evolutionChain.value = response.data
@@ -74,14 +73,30 @@ export const usePokemonStore = defineStore("pokemon", () => {
     })
   }
 
+  function addPokemonToTeam(entry: number) {
+    if (myPokemonTeam.value.length < 6) {
+      pokeApi.pokemon.one(entry).then((response: any) => {
+        myPokemonTeam.value.push(response.data)
+      }).catch((err: any) => {
+        console.error(err)
+      })
+    }
+  }
+  function removePokemonFromTeam(index: number) {
+    myPokemonTeam.value.splice(index, 1)
+  }
+
   return {
     pokemonList,
     pokemonDetail,
     pokemonSpecies,
     evolutionChain,
+    myPokemonTeam,
     getPokemonList,
     getPokemon,
     getPokemonSpecies,
     getEvolutionChain,
+    addPokemonToTeam,
+    removePokemonFromTeam,
   }
 })
