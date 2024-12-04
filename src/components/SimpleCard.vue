@@ -28,12 +28,17 @@ function handleButtonAction() {
     class="
       bg-gray-500
       border
-      border-gray-500
+      border-gray-200
       rounded-lg
       shadow
     "
   >
-    <div class="rounded-t-lg bg-orange-100">
+    <div
+        class="
+          rounded-t-lg
+          bg-orange-100
+        "
+    >
       <img
         class="
           m-auto

@@ -64,22 +64,22 @@
     })
   }
 
-  watch(targetGroupIsVisible1, async (_) => {
+  watch(targetGroupIsVisible1, async () => {
     setTimeout(() => revealSection(1), 500)
   })
-  watch(targetGroupIsVisible2, async (_) => {
+  watch(targetGroupIsVisible2, async () => {
     setTimeout(() => revealSection(2), 500)
   })
-  watch(targetGroupIsVisible3, async (_) => {
+  watch(targetGroupIsVisible3, async () => {
     setTimeout(() => revealSection(3), 500)
   })
-  watch(targetGroupIsVisible4, async (_) => {
+  watch(targetGroupIsVisible4, async () => {
     setTimeout(() => revealSection(4), 500)
   })
-  watch(targetGroupIsVisible5, async (_) => {
+  watch(targetGroupIsVisible5, async () => {
     setTimeout(() => revealSection(5), 500)
   })
-  watch(targetGroupIsVisible6, async (_) => {
+  watch(targetGroupIsVisible6, async () => {
     setTimeout(() => revealSection(6), 500)
   })
 
@@ -101,7 +101,6 @@
         class="
           flex
           flex-col
-          w-1/3-
           p-2
           w-full
           sm:w-6/12
