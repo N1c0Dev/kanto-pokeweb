@@ -314,7 +314,19 @@ function setBadgeTypeColor(type: string) {
           </span>
         </div>
       </div>
-      <div class="font-bold">stats:</div>
+      <h2
+        class="
+          font-bold
+          text-orange-100
+          text-xl
+          border-b
+          border-orange-100
+          pb-2
+          mb-2
+        "
+      >
+        Stats
+      </h2>
       <div
         v-for="(pokemonStat, index) in baseData.stats"
         :key="index"
@@ -393,7 +405,18 @@ function setBadgeTypeColor(type: string) {
       v-if="isExpanded"
       class="p-3"
     >
-      <div class="font-bold">evolution chain:</div>
+      <h2
+        class="
+          font-bold
+          text-orange-100
+          text-xl
+          border-b
+          border-orange-100
+          pb-2
+        "
+      >
+        Evolution Chain
+      </h2>
       <div class="flex w-full">
         <div class="flex w-2/6">
           <div class="w-1/2 self-center">
