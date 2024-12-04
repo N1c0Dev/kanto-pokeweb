@@ -4,6 +4,8 @@
 
   import { usePokemonStore } from "@/stores/pokemon.ts"
 
+  import SimpleCard from "@/components/SimpleCard.vue"
+
   const pokemonStore = usePokemonStore()
 
   const targetGroup1 = ref(null)
@@ -18,6 +20,8 @@
   const targetGroupIsVisible4 = useElementVisibility(targetGroup4)
   const targetGroupIsVisible5 = useElementVisibility(targetGroup5)
   const targetGroupIsVisible6 = useElementVisibility(targetGroup6)
+
+  const pokemonSpriteBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 
   function setGroup(index: number) {
     const groupValidation = [
@@ -45,7 +49,7 @@
   }
   function setInitPagination() {
     for(let index = 0; index < 7; index++) {
-      let groupArray = document.getElementsByName(`group-${index}`)
+      const groupArray = document.getElementsByName(`group-${index}`)
 
       groupArray.forEach((item) => {
         index > 0 ? item.classList.add('hidden') : item.classList.remove('hidden')
@@ -53,7 +57,7 @@
     }
   }
   function revealSection(index: number) {
-    let groupArray = document.getElementsByName(`group-${index}`)
+    const groupArray = document.getElementsByName(`group-${index}`)
 
     groupArray.forEach((item) => {
       item.classList.remove('hidden')
@@ -85,13 +89,35 @@
 </script>
 
 <template>
-  <div class="flex flex-wrap">
-    <template  v-for="pokemon in pokemonStore.pokemonList.pokemon_entries">
-      <div :ref="`targetGroup${setRef(pokemon.entry_number)}`" :id="`entry-${pokemon.entry_number}`"  :name="`group-${setGroup(pokemon.entry_number)}`" class="flex flex-col w-1/3">
-        <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.entry_number}.png`" alt="">
-        #{{ pokemon.entry_number }}
-        {{ pokemon.pokemon_species.name }}
-        <div @click="pokemonStore.addPokemonToTeam(pokemon.entry_number)">Add to my team</div>
+  <div
+    class="
+      flex
+      flex-wrap
+      bg-slate-100
+    "
+  >
+    <template  v-for="(pokemon, index) in pokemonStore.pokemonList.pokemon_entries" :key="index">
+      <div
+        class="
+          flex
+          flex-col
+          w-1/3-
+          p-2
+          w-full
+          sm:w-6/12
+          md:w-4/12
+          2xl:w-2/12
+        "
+        :ref="`targetGroup${setRef(pokemon.entry_number)}`"
+        :id="`entry-${pokemon.entry_number}`"
+        :name="`group-${setGroup(pokemon.entry_number)}`"
+      >
+        <SimpleCard
+          buttonText="Add to my team"
+          :button-action="() => { pokemonStore.addPokemonToTeam(pokemon.entry_number) }"
+          :image-url="`${pokemonSpriteBaseUrl}${pokemon.entry_number}.png`"
+          :title="`#${pokemon.entry_number} ${pokemon.pokemon_species.name}`"
+        />
       </div>
     </template>
   </div>
