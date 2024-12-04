@@ -369,6 +369,7 @@ function setBadgeTypeColor(type: string) {
         p-3
         justify-between
         self-end
+        h-full
       "
     >
       <button
@@ -376,7 +377,7 @@ function setBadgeTypeColor(type: string) {
           px-3
           py-2
           mr-1
-          self-center
+          self-end
           font-medium
           text-center
           text-white
@@ -392,7 +393,7 @@ function setBadgeTypeColor(type: string) {
           px-3
           py-2
           ml-1
-          self-center
+          self-end
           font-medium
           text-center
           text-white
