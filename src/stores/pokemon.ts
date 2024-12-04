@@ -65,8 +65,8 @@ export const usePokemonStore = defineStore("pokemon", () => {
       console.error(err)
     })
   }
-  function getEvolutionChain(id: number) {
-    pokeApi.evolutionChain.one(id).then((response: any) => {
+  function getEvolutionChain(url: string) {
+    pokeApi.evolutionChain.one(url).then((response: any) => {
       evolutionChain.value = response.data
     }).catch((err: any) => {
       console.error(err)

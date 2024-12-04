@@ -13,7 +13,7 @@ function playSound(soundId: string) {
 
 pokemonStore.getPokemon(route.params.id)
 pokemonStore.getPokemonSpecies(route.params.id)
-pokemonStore.getEvolutionChain(77)
+setTimeout(() => pokemonStore.getEvolutionChain(pokemonStore.pokemonSpecies.evolution_chain.url), 500)
 </script>
 
 <template>

@@ -12,7 +12,7 @@ const pokemonSpecies = {
   one: (idOrName: string | number) => axios.get(`${baseApiUrl}/pokemon-species/${idOrName}`),
 }
 const evolutionChain = {
-  one: (id: number) => axios.get(`${baseApiUrl}/evolution-chain/${id}`),
+  one: (url: string) => axios.get(url),
 }
 
 export default {

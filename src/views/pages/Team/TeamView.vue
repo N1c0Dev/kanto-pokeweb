@@ -1,10 +1,16 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+
 import { usePokemonStore } from "@/stores/pokemon.ts"
 
 const pokemonStore = usePokemonStore()
+const router: any = useRouter()
 
 function playSound(soundId: string) {
   document.getElementById(soundId).play()
+}
+function goToDetails(id: number) {
+  router.push({path: `/team/${id}`})
 }
 </script>
 
@@ -25,7 +31,7 @@ function playSound(soundId: string) {
     <div class="font-bold" @click="playSound(`latest-sound-${index}`)">Cry</div>
     <div class="font-bold" @click="playSound(`legacy-sound-${index}`)">Legacy cry</div>
     <div @click="pokemonStore.removePokemonFromTeam(index)">Remove</div>
-    <div>Details</div>
+    <div @click="goToDetails(pokemon.id)">Details</div>
   </div>
 </template>
 
