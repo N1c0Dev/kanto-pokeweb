@@ -13,10 +13,39 @@ function goToTeam() {
 
 <template>
   <div class="debug-screens" />
-  <div class="mt-2 flex">
-    <div @click="goToHome">Home</div>
-    <div @click="goToTeam">Team</div>
+  <nav
+    class="
+      flex
+      h-20
+      justify-center
+      bg-slate-800
+    "
+  >
+    <a
+      class="
+        mr-3
+        self-center
+        cursor-pointer
+        text-orange-100
+        text-xl
+        font-semibold
+      "
+      @click="goToHome">Home
+    </a>
+    <a
+      class="
+        mr-3
+        self-center
+        cursor-pointer
+        text-orange-100
+        text-xl
+        font-semibold
+      "
+      @click="goToTeam">Team
+    </a>
+  </nav>
+  <div class="m-5">
+    <RouterView />
   </div>
-  <RouterView />
 </template>
 

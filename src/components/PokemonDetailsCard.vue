@@ -151,6 +151,7 @@ function setBadgeTypeColor(type: string) {
       class="
         flex
         w-full
+        lg:flex-col
       "
     >
       <div
@@ -160,12 +161,15 @@ function setBadgeTypeColor(type: string) {
           rounded-tl-lg
           w-2/6
           self-stretch
+          lg:rounded-t-lg
+          lg:w-full
         "
       >
         <img
           class="
             w-1/2
             m-auto
+            lg:w-2/12
           "
           :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${baseData.id}.png`"
           :alt="baseData.name"
