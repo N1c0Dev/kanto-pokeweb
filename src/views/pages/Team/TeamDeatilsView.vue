@@ -16,6 +16,7 @@ setTimeout(() => pokemonStore.getEvolutionChain(pokemonStore.pokemonSpecies.evol
 
 <template>
   <PokemonDetailsCard
+    :is-expanded="true"
     :base-data="pokemonStore.pokemonDetail"
     :species-data="pokemonStore.pokemonSpecies"
     :evolution-chain-data="pokemonStore.evolutionChain"

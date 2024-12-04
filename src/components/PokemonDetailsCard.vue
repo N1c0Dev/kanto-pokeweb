@@ -3,10 +3,15 @@ import { useRouter } from "vue-router"
 
 import HorizontalBar from "@/components/HorizontalBar.vue"
 import ArrowIcon from "@/components/Icons/ArrowIcon.vue"
+import SoundWaveIcon from "@/components/Icons/SoundWaveIcon.vue";
 
 const router = useRouter()
 
 const props = defineProps({
+  isExpanded: {
+    type: Boolean,
+    default: false,
+  },
   cardPosition: {
     type: Number,
     default: 0,
@@ -48,6 +53,84 @@ function getPokemonIdFromUrl(url: string) {
   const splitUrl = url.split('/')
   return splitUrl[splitUrl.length - 2]
 }
+function setBadgeTypeColor(type: string) {
+  const typeColors = {
+    normal: {
+      bg: 'bg-zinc-200',
+      text: 'text-zinc-400',
+    },
+    fire: {
+      bg: 'bg-orange-200',
+      text: 'text-orange-600',
+    },
+    water: {
+      bg: 'bg-blue-200',
+      text: 'text-blue-500',
+    },
+    electric: {
+      bg: 'bg-amber-200',
+      text: 'text-amber-400',
+    },
+    grass: {
+      bg: 'bg-lime-200',
+      text: 'text-lime-600',
+    },
+    ice: {
+      bg: 'bg-sky-200',
+      text: 'text-sky-300',
+    },
+    fighting: {
+      bg: 'bg-red-200',
+      text: 'text-red-500',
+    },
+    poison: {
+      bg: 'bg-fuchsia-200',
+      text: 'text-fuchsia-700',
+    },
+    ground: {
+      bg: 'bg-amber-200',
+      text: 'text-amber-300',
+    },
+    flying: {
+      bg: 'bg-indigo-200',
+      text: 'text-indigo-400',
+    },
+    psychic: {
+      bg: 'bg-pink-200',
+      text: 'text-pink-500',
+    },
+    bug: {
+      bg: 'bg-lime-200',
+      text: 'text-lime-500',
+    },
+    rock: {
+      bg: 'bg-stone-200',
+      text: 'text-stone-400',
+    },
+    ghost: {
+      bg: 'bg-violet-200',
+      text: 'text-violet-500',
+    },
+    dragon: {
+      bg: 'bg-indigo-200',
+      text: 'text-indigo-500',
+    },
+    dark: {
+      bg: 'bg-stone-200',
+      text: 'text-stone-600',
+    },
+    steel: {
+      bg: 'bg-gray-200',
+      text: 'text-gray-400',
+    },
+    fairy: {
+      bg: 'bg-fuchsia-200',
+      text: 'text-fuchsia-300',
+    },
+  }
+
+  return typeColors[type]
+}
 </script>
 
 <template>
@@ -83,7 +166,6 @@ function getPokemonIdFromUrl(url: string) {
           class="
             w-1/2
             m-auto
-            rounded-tl-lg-
           "
           :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${baseData.id}.png`"
           :alt="baseData.name"
@@ -107,6 +189,7 @@ function getPokemonIdFromUrl(url: string) {
           {{baseData.name}}
         </h5>
         <p
+          v-if="isExpanded"
           class="
             mb-3
             font-normal
@@ -126,18 +209,58 @@ function getPokemonIdFromUrl(url: string) {
           preload="auto"
         />
         <div class="flex">
-          <div
-            class="font-bold"
+          <button
+            class="
+              flex
+              px-3
+              py-2
+              mr-1
+              self-center
+              font-medium
+              text-center
+              text-white
+              text-sm
+              rounded-lg
+              bg-yellow-600
+            "
             @click="playSound(`latest-sound-${baseData.id}`)"
           >
-            Cry
-          </div>
-          <div
-            class="font-bold"
+            <SoundWaveIcon
+              class="
+                w-6
+                self-center
+                mr-1
+              "
+              color="white"
+            />
+            Latest Cry
+          </button>
+          <button
+            class="
+              flex
+              px-3
+              py-2
+              mr-1
+              self-center
+              font-medium
+              text-center
+              text-white
+              text-sm
+              rounded-lg
+              bg-yellow-600
+            "
             @click="playSound(`legacy-sound-${baseData.id}`)"
           >
-            Legacy cry
-          </div>
+            <SoundWaveIcon
+              class="
+                w-6
+                self-center
+                mr-1
+              "
+              color="white"
+            />
+            Legacy Cry
+          </button>
         </div>
       </div>
     </div>
@@ -149,13 +272,46 @@ function getPokemonIdFromUrl(url: string) {
         p-3
       "
     >
-      <div class="font-bold">type:</div>
-      <div class="flex">
+      <h2
+        class="
+          font-bold
+          text-orange-100
+          text-xl
+          border-b
+          border-orange-100
+          pb-2
+        "
+      >
+        Type
+      </h2>
+      <div
+        class="
+          flex
+          flex-wrap
+          my-2
+        "
+      >
         <div
           v-for="(pokemonType, index) in baseData.types"
           :key="index"
         >
-          {{pokemonType.type.name}}
+          <span
+            class="
+              text-xs
+              capitalize
+              font-light
+              me-1
+              px-2.5
+              py-0.5
+              rounded-full
+            "
+            :class="[
+              `${setBadgeTypeColor(pokemonType?.type?.name ?? 'normal').bg}`,
+              `${setBadgeTypeColor(pokemonType?.type?.name ?? 'normal').text}`,
+            ]"
+          >
+            {{pokemonType.type.name}}
+          </span>
         </div>
       </div>
       <div class="font-bold">stats:</div>
@@ -191,6 +347,7 @@ function getPokemonIdFromUrl(url: string) {
       </div>
     </div>
     <div
+      v-if="!isExpanded"
       class="
         flex
         p-3
@@ -232,7 +389,10 @@ function getPokemonIdFromUrl(url: string) {
         Remove
       </button>
     </div>
-    <div class="p-3">
+    <div
+      v-if="isExpanded"
+      class="p-3"
+    >
       <div class="font-bold">evolution chain:</div>
       <div class="flex w-full">
         <div class="flex w-2/6">
