@@ -2,16 +2,19 @@
 import { usePokemonStore } from "@/stores/pokemon.ts"
 
 import PokemonDetailsCard from "@/components/PokemonDetailsCard.vue"
+import NavBar from "@/components/NavBar.vue";
 
 const pokemonStore = usePokemonStore()
 </script>
 
 <template>
+  <NavBar activePage="team"/>
   <div
     class="
       flex
       flex-col
       bg-slate-100
+      m-5
       md:flex-row
       md:flex-wrap
     "

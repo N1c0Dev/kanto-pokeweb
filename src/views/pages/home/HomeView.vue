@@ -5,6 +5,7 @@
   import { usePokemonStore } from "@/stores/pokemon.ts"
 
   import SimpleCard from "@/components/SimpleCard.vue"
+  import NavBar from "@/components/NavBar.vue";
 
   const pokemonStore = usePokemonStore()
 
@@ -89,10 +90,12 @@
 </script>
 
 <template>
+  <NavBar activePage="home"/>
   <div
     class="
       flex
       flex-wrap
+      m-5
       bg-slate-100
     "
   >
