@@ -1,47 +1,92 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { usePokemonStore } from "@/stores/pokemon.ts"
+import { usePokemonStore } from '@/stores/pokemon.ts'
 
-const route: any = useRoute()
+import PokemonDetailsCard from '@/components/PokemonDetailsCard.vue'
+import NavBar from '@/components/NavBar.vue'
+
+const route = useRoute()
+
+const pokemonIsValid = ref(false)
 
 const pokemonStore = usePokemonStore()
 
-function playSound(soundId: string) {
-  document.getElementById(soundId).play()
+function checkPokemon(){
+  pokemonIsValid.value = pokemonStore.myPokemonTeam.find(
+    (pokemon: { id: string | string[]}) => pokemon.id == route.params.id
+  )
 }
 
-pokemonStore.getPokemon(route.params.id)
-pokemonStore.getPokemonSpecies(route.params.id)
-setTimeout(() => pokemonStore.getEvolutionChain(pokemonStore.pokemonSpecies.evolution_chain.url), 500)
+checkPokemon()
+if (pokemonIsValid.value) {
+  pokemonStore.getPokemon(route.params.id)
+  pokemonStore.getPokemonSpecies(route.params.id)
+  setTimeout(() => pokemonStore.getEvolutionChain(pokemonStore.pokemonSpecies.evolution_chain.url), 500)
+}
 </script>
 
 <template>
-  <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonStore.pokemonDetail.id}.png`" alt="">
-  <div><span class="font-bold">name: </span>{{pokemonStore.pokemonDetail.name}}</div>
-  <div class="font-bold">type:</div>
-  <div v-for="pokemonType in pokemonStore.pokemonDetail.types">
-    {{pokemonType.type.name}}
-  </div>
-  <div class="font-bold">stats:</div>
-  <div v-for="pokemonStat in pokemonStore.pokemonDetail.stats">
-    {{pokemonStat.stat.name}}: {{pokemonStat.base_stat}}
-  </div>
-  <div><span class="font-bold">altura: </span>{{pokemonStore.pokemonDetail.height * 10}} cm</div>
-  <div><span class="font-bold">peso: </span>{{pokemonStore.pokemonDetail.weight * 100}} g</div>
-  <audio id="latest-sound" :src="pokemonStore.pokemonDetail.cries.latest" preload="auto"></audio>
-  <audio id="legacy-sound" :src="pokemonStore.pokemonDetail.cries.legacy" preload="auto"></audio>
-  <div class="font-bold" @click="playSound('latest-sound')">Cry</div>
-  <div class="font-bold" @click="playSound('legacy-sound')">Legacy cry</div>
-  <div><span class="font-bold">description: </span>{{pokemonStore.pokemonSpecies.flavor_text_entries[0].flavor_text}}</div>
-  <div class="font-bold">evolution chain:</div>
-  <div>{{pokemonStore.evolutionChain.chain.species.name}}</div>
-  <div class="underline">Options:</div>
-  <div v-for="evolution in pokemonStore.evolutionChain.chain.evolves_to">
-    {{ evolution.species.name }}
-    <span v-for="subEvolution in evolution.evolves_to">
-    > {{ subEvolution.species.name }}
-    </span>
+  <div class="mb-5">
+    <NavBar
+      activePage="team"
+      :pokemon-count="pokemonStore.myPokemonTeam.length"
+    />
+    <div
+      v-if="pokemonIsValid"
+      class="
+        mx-5
+        mt-5
+      "
+    >
+      <PokemonDetailsCard
+        :is-expanded="true"
+        :base-data="pokemonStore.pokemonDetail"
+        :species-data="pokemonStore.pokemonSpecies"
+        :evolution-chain-data="pokemonStore.evolutionChain"
+      />
+    </div>
+    <div
+      v-else
+      class="
+        mx-5
+        mt-5
+      "
+    >
+      <section
+        class="
+        flex
+        flex-col
+        bg-slate-300
+        h-screen
+        w-full
+        shadow
+        rounded-lg
+        text-gray-500
+        text-3xl
+        font-semibold
+      "
+      >
+        <img
+          class="
+          mt-auto
+          mx-auto
+          w-[150px]
+        "
+          src="@/assets/icons/pokeball.svg"
+          alt="pokeball"
+        />
+        <div
+          class="
+          mb-auto
+          mx-auto
+        "
+        >
+          This Pokémon is not currently part of your team
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 

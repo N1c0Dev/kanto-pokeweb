@@ -1,37 +1,83 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { usePokemonStore } from '@/stores/pokemon.ts'
 
-import { usePokemonStore } from "@/stores/pokemon.ts"
+import PokemonDetailsCard from '@/components/PokemonDetailsCard.vue'
+import NavBar from '@/components/NavBar.vue'
 
 const pokemonStore = usePokemonStore()
-const router: any = useRouter()
-
-function playSound(soundId: string) {
-  document.getElementById(soundId).play()
-}
-function goToDetails(id: number) {
-  router.push({path: `/team/${id}`})
-}
 </script>
 
 <template>
-  <div v-for="(pokemon, index) in pokemonStore.myPokemonTeam">
-    <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" alt="">
-    <div><span class="font-bold">name: </span>{{pokemon.name}}</div>
-    <div class="font-bold">type:</div>
-    <div v-for="pokemonType in pokemon.types">
-      {{pokemonType.type.name}}
+  <NavBar
+    activePage="team"
+    :pokemon-count="pokemonStore.myPokemonTeam.length"
+  />
+  <div
+    class="
+      flex
+      flex-col
+      bg-slate-100
+      m-5
+      md:flex-row
+      md:flex-wrap
+    "
+  >
+    <section
+      v-if="pokemonStore.myPokemonTeam.length === 0"
+      class="
+        flex
+        flex-col
+        bg-slate-300
+        h-screen
+        w-full
+        shadow
+        rounded-lg
+        text-gray-500
+        text-3xl
+        font-semibold
+      "
+    >
+      <img
+        class="
+          mt-auto
+          mx-auto
+          w-[150px]
+        "
+        src="@/assets/icons/pokeball.svg"
+        alt="pokeball"
+      />
+      <div
+        class="
+          mb-auto
+          mx-auto
+        "
+      >
+        Your team is empty!
+      </div>
+    </section>
+    <div
+      v-else
+      v-for="(pokemon, index) in pokemonStore.myPokemonTeam"
+      :key="index"
+      class="
+        md:w-1/2
+        xl:w-4/12
+      "
+    >
+      <div
+        class="
+          flex
+          flex-col
+          p-2
+          md:h-full
+        "
+      >
+        <PokemonDetailsCard
+          :base-data="pokemon"
+          :remove-from-team-action="() => {pokemonStore.removePokemonFromTeam(index)}"
+        />
+      </div>
     </div>
-    <div class="font-bold">stats:</div>
-    <div v-for="pokemonStat in pokemon.stats">
-      {{pokemonStat.stat.name}}: {{pokemonStat.base_stat}}
-    </div>
-    <audio :id="`latest-sound-${index}`" :src="pokemon.cries.latest" preload="auto"></audio>
-    <audio :id="`legacy-sound-${index}`" :src="pokemon.cries.legacy" preload="auto"></audio>
-    <div class="font-bold" @click="playSound(`latest-sound-${index}`)">Cry</div>
-    <div class="font-bold" @click="playSound(`legacy-sound-${index}`)">Legacy cry</div>
-    <div @click="pokemonStore.removePokemonFromTeam(index)">Remove</div>
-    <div @click="goToDetails(pokemon.id)">Details</div>
   </div>
 </template>
 

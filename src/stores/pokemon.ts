@@ -1,20 +1,25 @@
-import { ref } from "vue"
-import { defineStore } from "pinia"
+import { ref } from 'vue'
+import { defineStore } from 'pinia'
 
-import pokeApi from "@/pokeApi.ts"
+import pokeApi from '@/api/pokeApi.ts'
 
-export const usePokemonStore = defineStore("pokemon", () => {
-  let pokemonList = ref({
+export const usePokemonStore = defineStore('pokemon', () => {
+  const pokemonList = ref({
     descriptions: [],
     id: 0,
     is_main_series: true,
     name: '',
     names: [],
-    pokemon_entries: [],
+    pokemon_entries: [{
+      entry_number: 0,
+      pokemon_species: {
+        name: ''
+      },
+    }],
     region: {},
     version_groups: []
   })
-  let pokemonDetail = ref({
+  const pokemonDetail = ref({
     abilities: [],
     base_experience: 0,
     cries: {},
@@ -36,13 +41,17 @@ export const usePokemonStore = defineStore("pokemon", () => {
     types: [],
     weight: 0
   })
-  let pokemonSpecies = ref({})
-  let evolutionChain = ref({
+  const pokemonSpecies = ref({
+    evolution_chain: {
+      url: ''
+    },
+  })
+  const evolutionChain = ref({
     baby_trigger_item:	null,
     chain: {},
     id: 0,
   })
-  let myPokemonTeam = ref([])
+  const myPokemonTeam: any = ref([])
 
   function getPokemonList(type: string) {
     pokeApi.pokedex.get(type).then((response: any) => {
@@ -51,14 +60,14 @@ export const usePokemonStore = defineStore("pokemon", () => {
       console.error(err)
     })
   }
-  function getPokemon(name: string) {
+  function getPokemon(name: string | string[]) {
     pokeApi.pokemon.one(name).then((response: any) => {
       pokemonDetail.value = response.data
     }).catch((err: any) => {
       console.error(err)
     })
   }
-  function getPokemonSpecies(idOrName: string | number) {
+  function getPokemonSpecies(idOrName: string | string[] | number) {
     pokeApi.pokemonSpecies.one(idOrName).then((response: any) => {
       pokemonSpecies.value = response.data
     }).catch((err: any) => {

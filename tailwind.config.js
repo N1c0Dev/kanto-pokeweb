@@ -11,7 +11,7 @@ export default {
       style: {
         backgroundColor: '#ffffff03',
         boxShadow: 'none',
-        color: 'black',
+        color: 'white',
       },
     },
   },

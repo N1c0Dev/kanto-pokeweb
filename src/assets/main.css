@@ -1,2 +1,25 @@
 @import './base.css';
 
+body {
+    background: #f1f5f9;
+    font-family: DM Sans, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.show-card {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: show-animation 1s ease-out forwards;
+}
+
+@keyframes show-animation {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
