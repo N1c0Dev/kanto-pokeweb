@@ -40,7 +40,7 @@ function goToHome() {
       >
         404
       </h1>
-      <p class="mx-auto">Pokepage not found...</p>
+      <p class="mx-auto">Poképage not found...</p>
       <button
         class="
           mx-auto

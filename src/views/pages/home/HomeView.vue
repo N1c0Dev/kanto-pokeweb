@@ -119,7 +119,7 @@
       >
         <SimpleCard
           buttonText="Add to team"
-          button-text-disabled="Team is Full!"
+          button-text-disabled="Your team is already full!"
           :button-action="() => { pokemonStore.addPokemonToTeam(pokemon.entry_number) }"
           :image-url="`${pokemonSpriteBaseUrl}${pokemon.entry_number}.png`"
           :title="`#${pokemon.entry_number} ${pokemon.pokemon_species.name}`"
