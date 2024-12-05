@@ -52,9 +52,9 @@
     for(let index = 0; index < 7; index++) {
       const groupArray = document.getElementsByName(`group-${index}`)
 
-      groupArray.forEach((item) => {
-        index > 0 ? item.classList.add('hidden') : item.classList.remove('hidden')
-      })
+      groupArray.forEach(
+        (item) => index > 0 ? item.classList.add('hidden') : item.classList.remove('hidden')
+      )
     }
   }
   function revealSection(index: number) {
@@ -62,6 +62,7 @@
 
     groupArray.forEach((item) => {
       item.classList.remove('hidden')
+      item.classList.add('show-card')
     })
   }
 
