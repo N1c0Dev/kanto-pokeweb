@@ -433,7 +433,13 @@ function setBadgeTypeColor(type: string) {
             <p class="text-center capitalize">{{evolutionChainData.chain.species.name}}</p>
           </div>
           <div class="w-1/2 self-center">
-            <ArrowIcon class="w-10" color="#ffedd5"/>
+            <ArrowIcon
+              class="
+                w-10
+                m-auto
+              "
+              color="#ffedd5"
+            />
           </div>
         </div>
         <div class="w-4/6">
@@ -475,6 +481,7 @@ function setBadgeTypeColor(type: string) {
                 "
                 color="#ffedd5"
               />
+
               <div class="self-center">
                 <img
                   :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonIdFromUrl(subEvolution.species.url)}.png`"

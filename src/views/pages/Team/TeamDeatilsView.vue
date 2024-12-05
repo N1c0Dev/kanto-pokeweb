@@ -17,7 +17,10 @@ setTimeout(() => pokemonStore.getEvolutionChain(pokemonStore.pokemonSpecies.evol
 
 <template>
   <div class="mb-5">
-    <NavBar activePage="team"/>
+    <NavBar
+      activePage="team"
+      :pokemon-count="pokemonStore.myPokemonTeam.length"
+    />
     <div
       class="
         mx-5

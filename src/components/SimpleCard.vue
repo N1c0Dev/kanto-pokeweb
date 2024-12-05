@@ -12,6 +12,14 @@ const props = defineProps({
     type: String,
     default: 'Click me!',
   },
+  buttonTextDisabled: {
+    type: String,
+    default: 'Disabled!',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
   buttonAction: {
     type: Function,
     default: () => {}
@@ -70,14 +78,17 @@ function handleButtonAction() {
           text-sm
           font-medium
           text-center
-          text-white
           rounded-lg
-          bg-lime-800
-          hover:bg-lime-900
         "
+        :class="[
+          !disabled ?
+          'bg-lime-800 hover:bg-lime-900 text-white cursor-pointer' :
+          'bg-slate-300 text-gray-500 cursor-not-allowed'
+         ]"
+        :disabled="disabled"
         @click="handleButtonAction"
       >
-        {{ buttonText }}
+        {{ !disabled ? buttonText : buttonTextDisabled }}
       </button>
     </div>
   </div>

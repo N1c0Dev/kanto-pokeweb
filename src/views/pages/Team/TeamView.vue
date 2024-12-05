@@ -8,7 +8,10 @@ const pokemonStore = usePokemonStore()
 </script>
 
 <template>
-  <NavBar activePage="team"/>
+  <NavBar
+    activePage="team"
+    :pokemon-count="pokemonStore.myPokemonTeam.length"
+  />
   <div
     class="
       flex
@@ -19,7 +22,34 @@ const pokemonStore = usePokemonStore()
       md:flex-wrap
     "
   >
+    <section
+      v-if="pokemonStore.myPokemonTeam.length === 0"
+      class="
+        flex
+        flex-col
+        bg-slate-300
+        h-screen
+        w-full
+        shadow
+        rounded-lg
+        text-gray-500
+        text-3xl
+        font-semibold
+      "
+    >
+      <img
+        class="
+          mt-auto
+          mx-auto
+          w-[150px]
+        "
+        src="@/assets/icons/pokeball.svg"
+        alt="pokeball"
+      />
+      <div class="mb-auto mx-auto">Your team is empty!</div>
+    </section>
     <div
+      v-else
       v-for="(pokemon, index) in pokemonStore.myPokemonTeam"
       :key="index"
       class="

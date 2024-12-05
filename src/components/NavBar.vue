@@ -7,7 +7,11 @@ defineProps({
   activePage: {
     type: String,
     default: 'home',
-  }
+  },
+  pokemonCount: {
+    type: Number,
+    default: 0,
+  },
 })
 
 function goToHome() {
@@ -55,6 +59,18 @@ function goToTeam() {
     >
       Team
     </a>
+    <div
+      class="
+        self-center
+        inline-block
+        rounded-full
+        w-2
+        h-2
+        mb-2
+        -ml-2
+      "
+      :class="[pokemonCount > 0 ? 'bg-red-500' : 'bg-slate-800']"
+    />
   </nav>
 </template>
 

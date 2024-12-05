@@ -90,7 +90,10 @@
 </script>
 
 <template>
-  <NavBar activePage="home"/>
+  <NavBar
+    activePage="home"
+    :pokemon-count="pokemonStore.myPokemonTeam.length"
+  />
   <div
     class="
       flex
@@ -115,10 +118,12 @@
         :name="`group-${setGroup(pokemon.entry_number)}`"
       >
         <SimpleCard
-          buttonText="Add to my team"
+          buttonText="Add to team"
+          button-text-disabled="Team is Full!"
           :button-action="() => { pokemonStore.addPokemonToTeam(pokemon.entry_number) }"
           :image-url="`${pokemonSpriteBaseUrl}${pokemon.entry_number}.png`"
           :title="`#${pokemon.entry_number} ${pokemon.pokemon_species.name}`"
+          :disabled="pokemonStore.myPokemonTeam.length === 6"
         />
       </div>
     </template>
