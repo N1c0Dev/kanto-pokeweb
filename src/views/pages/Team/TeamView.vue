@@ -46,7 +46,14 @@ const pokemonStore = usePokemonStore()
         src="@/assets/icons/pokeball.svg"
         alt="pokeball"
       />
-      <div class="mb-auto mx-auto">Your team is empty!</div>
+      <div
+        class="
+          mb-auto
+          mx-auto
+        "
+      >
+        Your team is empty!
+      </div>
     </section>
     <div
       v-else

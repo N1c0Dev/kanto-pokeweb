@@ -3,6 +3,8 @@ import HomeView from "@/views/pages/home/HomeView.vue"
 import TeamView from "@/views/pages/Team/TeamView.vue"
 import TeamDeatilsView from "@/views/pages/Team/TeamDeatilsView.vue"
 
+import NotFoundView from "@/views/base/NotFoundView.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -20,6 +22,15 @@ const router = createRouter({
       path: '/team/:id',
       name: 'team-details',
       component: TeamDeatilsView,
+    },
+    {
+      path: "/404",
+      name: "error404",
+      component: NotFoundView,
+    },
+    {
+      path: "/:patchMatch(.*)*",
+      redirect: () => ({ name: "error404" }),
     },
   ],
 })
