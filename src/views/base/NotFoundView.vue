@@ -25,18 +25,18 @@ function goToHome() {
     >
       <img
         class="
-        mx-auto
-        mt-auto
-        w-[150px]
+          mx-auto
+          mt-auto
+          w-[150px]
         "
         src="@/assets/icons/missingno.svg"
         alt="missingno"
       />
       <h1
         class="
-        mx-auto
-        text-[6rem]
-      "
+          mx-auto
+          text-[6rem]
+        "
       >
         404
       </h1>

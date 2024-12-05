@@ -42,10 +42,10 @@ function handleButtonAction() {
     "
   >
     <div
-        class="
-          rounded-t-lg
-          bg-orange-100
-        "
+      class="
+        rounded-t-lg
+        bg-orange-100
+      "
     >
       <img
         class="

@@ -4,13 +4,6 @@ import { RouterView } from 'vue-router'
 
 <template>
   <div class="debug-screens" />
-  <div
-    class="
-      mx-5-
-      mb-5-
-    "
-  >
     <RouterView />
-  </div>
 </template>
 
