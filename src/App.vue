@@ -3,7 +3,6 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div class="debug-screens" />
+  <div class="debug-screens-" />
     <RouterView />
 </template>
-
