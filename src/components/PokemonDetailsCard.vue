@@ -41,6 +41,7 @@ const props = defineProps({
 })
 
 function playSound(soundId: string) {
+  // @ts-expect-error is required to play the sound
   document.getElementById(soundId).play()
 }
 function goToDetails(id: number) {
@@ -54,7 +55,7 @@ function getPokemonIdFromUrl(url: string) {
   return splitUrl[splitUrl.length - 2]
 }
 function setBadgeTypeColor(type: string) {
-  const typeColors = {
+  const typeColors: any = {
     normal: {
       bg: 'bg-zinc-200',
       text: 'text-zinc-400',

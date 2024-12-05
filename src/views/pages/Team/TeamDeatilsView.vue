@@ -9,12 +9,12 @@ import NavBar from "@/components/NavBar.vue";
 
 const route = useRoute()
 
-const pokemonIsValid: boolean = ref(false)
+const pokemonIsValid = ref(false)
 
 const pokemonStore = usePokemonStore()
 
 function checkPokemon(){
-  pokemonIsValid.value = pokemonStore.myPokemonTeam.find(pokemon => pokemon.id == route.params.id)
+  pokemonIsValid.value = pokemonStore.myPokemonTeam.find((pokemon: { id: string | string[]}) => pokemon.id == route.params.id)
 }
 
 checkPokemon()
