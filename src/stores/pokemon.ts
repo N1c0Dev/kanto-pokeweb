@@ -1,9 +1,9 @@
-import { ref } from "vue"
-import { defineStore } from "pinia"
+import { ref } from 'vue'
+import { defineStore } from 'pinia'
 
-import pokeApi from "@/api/pokeApi.ts"
+import pokeApi from '@/api/pokeApi.ts'
 
-export const usePokemonStore = defineStore("pokemon", () => {
+export const usePokemonStore = defineStore('pokemon', () => {
   const pokemonList = ref({
     descriptions: [],
     id: 0,

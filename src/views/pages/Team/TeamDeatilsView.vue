@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { usePokemonStore } from "@/stores/pokemon.ts"
+import { usePokemonStore } from '@/stores/pokemon.ts'
 
-import PokemonDetailsCard from "@/components/PokemonDetailsCard.vue"
-import NavBar from "@/components/NavBar.vue";
+import PokemonDetailsCard from '@/components/PokemonDetailsCard.vue'
+import NavBar from '@/components/NavBar.vue'
 
 const route = useRoute()
 
@@ -14,7 +14,9 @@ const pokemonIsValid = ref(false)
 const pokemonStore = usePokemonStore()
 
 function checkPokemon(){
-  pokemonIsValid.value = pokemonStore.myPokemonTeam.find((pokemon: { id: string | string[]}) => pokemon.id == route.params.id)
+  pokemonIsValid.value = pokemonStore.myPokemonTeam.find(
+    (pokemon: { id: string | string[]}) => pokemon.id == route.params.id
+  )
 }
 
 checkPokemon()

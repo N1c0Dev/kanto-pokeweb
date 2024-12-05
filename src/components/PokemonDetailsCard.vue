@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router"
+import { useRouter } from 'vue-router'
 
-import HorizontalBar from "@/components/HorizontalBar.vue"
-import ArrowIcon from "@/components/Icons/ArrowIcon.vue"
-import SoundWaveIcon from "@/components/Icons/SoundWaveIcon.vue";
+import HorizontalBar from '@/components/HorizontalBar.vue'
+import ArrowIcon from '@/components/Icons/ArrowIcon.vue'
+import SoundWaveIcon from '@/components/Icons/SoundWaveIcon.vue'
 
 const router = useRouter()
 
@@ -39,6 +39,8 @@ const props = defineProps({
     default: () => {}
   }
 })
+
+const pokemonSpriteBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 
 function playSound(soundId: string) {
   // @ts-expect-error is required to play the sound
@@ -172,7 +174,7 @@ function setBadgeTypeColor(type: string) {
             m-auto
             lg:w-2/12
           "
-          :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${baseData.id}.png`"
+          :src="`${pokemonSpriteBaseUrl}${baseData.id}.png`"
           :alt="baseData.name"
         >
       </div>
@@ -427,7 +429,7 @@ function setBadgeTypeColor(type: string) {
         <div class="flex w-2/6">
           <div class="w-1/2 self-center">
             <img
-              :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonIdFromUrl(
+              :src="`${pokemonSpriteBaseUrl}${getPokemonIdFromUrl(
                 evolutionChainData?.chain?.species?.url ? evolutionChainData.chain.species.url : '/0/'
               )}.png`"
               class="m-auto"
@@ -456,7 +458,7 @@ function setBadgeTypeColor(type: string) {
           >
             <div class="self-center">
               <img
-                :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonIdFromUrl(evolution.species.url)}.png`"
+                :src="`${pokemonSpriteBaseUrl}${getPokemonIdFromUrl(evolution.species.url)}.png`"
                 class="m-auto"
                 alt=""
               >
@@ -487,7 +489,7 @@ function setBadgeTypeColor(type: string) {
 
               <div class="self-center">
                 <img
-                  :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonIdFromUrl(subEvolution.species.url)}.png`"
+                  :src="`${pokemonSpriteBaseUrl}${getPokemonIdFromUrl(subEvolution.species.url)}.png`"
                   class="m-auto"
                   alt=""
                 >

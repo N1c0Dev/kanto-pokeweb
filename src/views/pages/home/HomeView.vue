@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { ref, watch } from 'vue'
-  import { useElementVisibility } from "@vueuse/core"
+  import { useElementVisibility } from '@vueuse/core'
 
-  import { usePokemonStore } from "@/stores/pokemon.ts"
+  import { usePokemonStore } from '@/stores/pokemon.ts'
 
-  import SimpleCard from "@/components/SimpleCard.vue"
-  import NavBar from "@/components/NavBar.vue";
+  import SimpleCard from '@/components/SimpleCard.vue'
+  import NavBar from '@/components/NavBar.vue'
 
   const pokemonStore = usePokemonStore()
 

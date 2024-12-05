@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory } from "vue-router"
-import HomeView from "@/views/pages/home/HomeView.vue"
-import TeamView from "@/views/pages/Team/TeamView.vue"
-import TeamDeatilsView from "@/views/pages/Team/TeamDeatilsView.vue"
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '@/views/pages/home/HomeView.vue'
+import TeamView from '@/views/pages/Team/TeamView.vue'
+import TeamDeatilsView from '@/views/pages/Team/TeamDeatilsView.vue'
 
-import NotFoundView from "@/views/base/NotFoundView.vue";
+import NotFoundView from '@/views/base/NotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

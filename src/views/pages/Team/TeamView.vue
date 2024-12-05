@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { usePokemonStore } from "@/stores/pokemon.ts"
+import { usePokemonStore } from '@/stores/pokemon.ts'
 
-import PokemonDetailsCard from "@/components/PokemonDetailsCard.vue"
-import NavBar from "@/components/NavBar.vue";
+import PokemonDetailsCard from '@/components/PokemonDetailsCard.vue'
+import NavBar from '@/components/NavBar.vue'
 
 const pokemonStore = usePokemonStore()
 </script>
