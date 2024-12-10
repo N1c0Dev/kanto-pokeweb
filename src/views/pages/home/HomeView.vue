@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref, watch } from 'vue'
-  import { useElementVisibility } from '@vueuse/core'
+  import { useIntersectionObserver } from '@vueuse/core'
 
   import { usePokemonStore } from '@/stores/pokemon.ts'
 
@@ -9,18 +9,17 @@
 
   const pokemonStore = usePokemonStore()
 
-  const targetGroup1 = ref(null)
-  const targetGroup2 = ref(null)
-  const targetGroup3 = ref(null)
-  const targetGroup4 = ref(null)
-  const targetGroup5 = ref(null)
-  const targetGroup6 = ref(null)
-  const targetGroupIsVisible1 = useElementVisibility(targetGroup1)
-  const targetGroupIsVisible2 = useElementVisibility(targetGroup2)
-  const targetGroupIsVisible3 = useElementVisibility(targetGroup3)
-  const targetGroupIsVisible4 = useElementVisibility(targetGroup4)
-  const targetGroupIsVisible5 = useElementVisibility(targetGroup5)
-  const targetGroupIsVisible6 = useElementVisibility(targetGroup6)
+  const endPageTarget = ref(null)
+  const endPageTargettIsVisibleIsVisible = ref(false)
+
+  const currentCardGroup = ref(0)
+
+  watch(endPageTargettIsVisibleIsVisible, ()=> {
+    if(endPageTargettIsVisibleIsVisible.value) {
+      setTimeout(() => revealSection(currentCardGroup.value), 500)
+      currentCardGroup.value ++
+    }
+  })
 
   const pokemonSpriteBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 
@@ -66,28 +65,14 @@
     })
   }
 
-  watch(targetGroupIsVisible1, async () => {
-    setTimeout(() => revealSection(1), 500)
-  })
-  watch(targetGroupIsVisible2, async () => {
-    setTimeout(() => revealSection(2), 500)
-  })
-  watch(targetGroupIsVisible3, async () => {
-    setTimeout(() => revealSection(3), 500)
-  })
-  watch(targetGroupIsVisible4, async () => {
-    setTimeout(() => revealSection(4), 500)
-  })
-  watch(targetGroupIsVisible5, async () => {
-    setTimeout(() => revealSection(5), 500)
-  })
-  watch(targetGroupIsVisible6, async () => {
-    setTimeout(() => revealSection(6), 500)
-  })
-
-
   pokemonStore.getPokemonList('kanto')
   setTimeout(() => setInitPagination(), 100)
+  useIntersectionObserver(
+    endPageTarget,
+    ([entry], observerElement) => {
+      endPageTargettIsVisibleIsVisible.value = entry?.isIntersecting || false
+    },
+  )
 </script>
 
 <template>
@@ -96,6 +81,7 @@
     :pokemon-count="pokemonStore.myPokemonTeam.length"
   />
   <div
+    v-if="pokemonStore.pokemonList.pokemon_entries[0].entry_number"
     class="
       flex
       flex-wrap
@@ -103,7 +89,10 @@
       bg-slate-100
     "
   >
-    <template  v-for="(pokemon, index) in pokemonStore.pokemonList.pokemon_entries" :key="index">
+    <template 
+      v-for="(pokemon, index) in pokemonStore.pokemonList.pokemon_entries" 
+      :key="index"
+    >
       <div
         class="
           flex
@@ -128,6 +117,7 @@
         />
       </div>
     </template>
+    <div ref="endPageTarget" />
   </div>
 </template>
 
