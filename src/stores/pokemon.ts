@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useMainStore } from './main'
 
 import pokeApi from '@/api/pokeApi.ts'
 
@@ -53,10 +54,13 @@ export const usePokemonStore = defineStore('pokemon', () => {
   })
   const myPokemonTeam: any = ref([])
 
+  const mainStore = useMainStore()
+
   function getPokemonList(type: string) {
     pokeApi.pokedex.get(type).then((response: any) => {
       pokemonList.value = response.data
     }).catch((err: any) => {
+      mainStore.setHomePokemonListNotFound(true)
       console.error(err)
     })
   }

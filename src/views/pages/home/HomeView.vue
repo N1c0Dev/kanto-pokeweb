@@ -7,6 +7,7 @@
 
   import SimpleCard from '@/components/SimpleCard.vue'
   import NavBar from '@/components/NavBar.vue'
+  import InfoPage from '@/components/infoPage.vue'
 
   const mainStore = useMainStore()
   const pokemonStore = usePokemonStore()
@@ -87,8 +88,41 @@
     activePage="home"
     :pokemon-count="pokemonStore.myPokemonTeam.length"
   />
+  <InfoPage v-if="mainStore.homePokemonListNotFound">
+    <template v-slot:content>
+      <img
+        class="
+          mt-auto
+          mx-auto
+          w-[150px]
+        "
+        src="@/assets/icons/pikachu.svg"
+        alt="pokeball"
+      />
+      <p
+        class="
+          mx-auto
+          text-center
+        "
+      >
+        Something went wrong, Team Rocket has attacked!
+      </p>
+      <small
+        class="
+          mx-auto
+          mb-auto
+          text-center
+        "
+      >
+        (PokeAPI is not responding)
+      </small>
+    </template>
+  </InfoPage>
   <div
-    v-if="pokemonStore.pokemonList.pokemon_entries[0].entry_number"
+    v-if="
+      pokemonStore.pokemonList.pokemon_entries[0].entry_number &&
+      !mainStore.homePokemonListNotFound
+    "
     class="
       flex
       flex-wrap
