@@ -35,9 +35,8 @@ function handleButtonAction() {
   <div
     class="
       bg-gray-500
-      border
-      border-gray-200
       rounded-lg
+      rounded-t-xl
       shadow
     "
   >

@@ -143,9 +143,8 @@ function setBadgeTypeColor(type: string) {
       flex-col
       h-full
       bg-gray-500
-      border
-      border-gray-200
       rounded-lg
+      rounded-tl-xl
       shadow
       text-white
     "
