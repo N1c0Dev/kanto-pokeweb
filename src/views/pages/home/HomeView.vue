@@ -2,20 +2,25 @@
   import { ref, watch } from 'vue'
   import { useIntersectionObserver } from '@vueuse/core'
 
+  import { useMainStore } from '@/stores/main.ts'
   import { usePokemonStore } from '@/stores/pokemon.ts'
 
   import SimpleCard from '@/components/SimpleCard.vue'
   import NavBar from '@/components/NavBar.vue'
 
+  const mainStore = useMainStore()
   const pokemonStore = usePokemonStore()
 
   const endPageTarget = ref(null)
   const endPageTargettIsVisibleIsVisible = ref(false)
 
   const currentCardGroup = ref(0)
+  const endPageVisibility = ref(true)
 
   watch(endPageTargettIsVisibleIsVisible, ()=> {
     if(endPageTargettIsVisibleIsVisible.value) {
+      mainStore.setPaginationLoader(true)
+      endPageVisibility.value = false
       setTimeout(() => revealSection(currentCardGroup.value), 500)
       currentCardGroup.value ++
     }
@@ -63,6 +68,8 @@
       item.classList.remove('hidden')
       item.classList.add('show-card')
     })
+    mainStore.setPaginationLoader(false)
+    endPageVisibility.value = true
   }
 
   pokemonStore.getPokemonList('kanto')
@@ -89,8 +96,8 @@
       bg-slate-100
     "
   >
-    <template 
-      v-for="(pokemon, index) in pokemonStore.pokemonList.pokemon_entries" 
+    <template
+      v-for="(pokemon, index) in pokemonStore.pokemonList.pokemon_entries"
       :key="index"
     >
       <div
@@ -117,7 +124,26 @@
         />
       </div>
     </template>
-    <div ref="endPageTarget" />
+    <div
+      v-if="mainStore.paginationLoader"
+      class="
+        flex
+        w-full
+        sm:w-6/12
+        md:w-4/12
+        2xl:w-2/12
+      "
+    >
+      <img
+        class="w-1/2 m-auto"
+        src="@/assets/icons/loader.svg"
+        alt="loader"
+      >
+    </div>
+    <div
+      v-if="endPageVisibility"
+      ref="endPageTarget"
+    />
   </div>
 </template>
 
