@@ -141,12 +141,8 @@
       >
     </div>
     <div
-      v-if="endPageVisibility"
+      v-if="endPageVisibility && currentCardGroup <= 5"
       ref="endPageTarget"
     />
   </div>
 </template>
-
-<style scoped>
-
-</style>

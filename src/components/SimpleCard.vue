@@ -92,7 +92,3 @@ function handleButtonAction() {
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

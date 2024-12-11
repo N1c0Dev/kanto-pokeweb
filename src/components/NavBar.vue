@@ -73,7 +73,3 @@ function goToTeam() {
     />
   </nav>
 </template>
-
-<style scoped>
-
-</style>

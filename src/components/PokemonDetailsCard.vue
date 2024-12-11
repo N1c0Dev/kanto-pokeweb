@@ -509,7 +509,3 @@ function setBadgeTypeColor(type: string) {
   </div>
 </template>
 
-<style scoped>
-
-</style>
-

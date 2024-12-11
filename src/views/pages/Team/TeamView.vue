@@ -80,7 +80,3 @@ const pokemonStore = usePokemonStore()
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

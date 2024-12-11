@@ -89,7 +89,3 @@ if (pokemonIsValid.value) {
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>
