@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useIntersectionObserver } from '@vueuse/core'
+import { useIntersectionObserver, useWindowScroll } from '@vueuse/core'
 
 import { useMainStore } from '@/stores/main.ts'
 import { usePokemonStore } from '@/stores/pokemon.ts'
@@ -19,16 +19,8 @@ const endPageTargettIsVisibleIsVisible = ref(false)
 const currentCardGroup = ref(0)
 const endPageVisibility = ref(true)
 
-watch(endPageTargettIsVisibleIsVisible, ()=> {
-  if(endPageTargettIsVisibleIsVisible.value) {
-    mainStore.setPaginationLoader(true)
-    endPageVisibility.value = false
-    setTimeout(() => revealSection(currentCardGroup.value), 500)
-    currentCardGroup.value ++
-  }
-})
-
 const pokemonSpriteBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
+const { y } = useWindowScroll({ behavior: 'smooth' })
 
 function setGroup(index: number) {
   const groupValidation = [
@@ -73,6 +65,42 @@ function revealSection(index: number) {
   mainStore.setPaginationLoader(false)
   endPageVisibility.value = true
 }
+function handleScrollTopButton(show: boolean = false) {
+  const scrollTopButton = document.getElementById('scroll-top-button')
+
+  if (show) {
+    scrollTopButton?.classList.remove('hidde')
+    scrollTopButton?.classList.remove('transition-opacity')
+    scrollTopButton?.classList.remove('duration-300')
+    scrollTopButton?.classList.remove('transform')
+    scrollTopButton?.classList.remove('translate-y-2')
+    scrollTopButton?.classList.remove('opacity-0')
+  } else {
+    scrollTopButton?.classList.add('hidde')
+    scrollTopButton?.classList.add('transition-opacity')
+    scrollTopButton?.classList.add('duration-300')
+    scrollTopButton?.classList.add('transform')
+    scrollTopButton?.classList.add('translate-y-2')
+    scrollTopButton?.classList.add('opacity-0')
+  }
+}
+
+watch(endPageTargettIsVisibleIsVisible, ()=> {
+  if(endPageTargettIsVisibleIsVisible.value) {
+    mainStore.setPaginationLoader(true)
+    endPageVisibility.value = false
+    setTimeout(() => revealSection(currentCardGroup.value), 500)
+    currentCardGroup.value ++
+  }
+})
+watch(y, (scrollValue)=> {
+  console.log(scrollValue)
+  if (scrollValue > 100) {
+    handleScrollTopButton(true)
+  } else {
+    handleScrollTopButton(false)
+  }
+})
 
 pokemonStore.getPokemonList('kanto')
 setTimeout(() => setInitPagination(), 500)
@@ -181,4 +209,28 @@ useIntersectionObserver(
       ref="endPageTarget"
     />
   </div>
+  <section
+    id="scroll-top-button"
+    class="
+      rounded-full
+      fixed
+      bottom-4
+      right-4
+      z-10
+      hidde
+      transition-opacity
+      duration-300
+      transform
+      translate-y-2
+      opacity-0
+    "
+  >
+    <button @click="y = 0">
+      <img
+        class="w-20"
+        src="@/assets/icons/caret.svg"
+        alt="to top"
+      >
+    </button>
+  </section>
 </template>
