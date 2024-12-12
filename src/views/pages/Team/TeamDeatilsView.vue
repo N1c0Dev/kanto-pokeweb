@@ -2,15 +2,18 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
+import { useMainStore } from '@/stores/main.ts'
 import { usePokemonStore } from '@/stores/pokemon.ts'
 
 import PokemonDetailsCard from '@/components/PokemonDetailsCard.vue'
 import NavBar from '@/components/NavBar.vue'
+import ScreenLoader from '@/components/screenLoader.vue'
 
 const route = useRoute()
 
 const pokemonIsValid = ref(false)
 
+const mainStore = useMainStore()
 const pokemonStore = usePokemonStore()
 
 function checkPokemon(){
@@ -33,6 +36,7 @@ if (pokemonIsValid.value) {
       activePage="team"
       :pokemon-count="pokemonStore.myPokemonTeam.length"
     />
+    <ScreenLoader :show="mainStore.pokemonDetailsLoader" />
     <div
       v-if="pokemonIsValid"
       class="

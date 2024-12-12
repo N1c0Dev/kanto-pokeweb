@@ -1,86 +1,87 @@
 <script setup lang="ts">
-  import { ref, watch } from 'vue'
-  import { useIntersectionObserver } from '@vueuse/core'
+import { ref, watch } from 'vue'
+import { useIntersectionObserver } from '@vueuse/core'
 
-  import { useMainStore } from '@/stores/main.ts'
-  import { usePokemonStore } from '@/stores/pokemon.ts'
+import { useMainStore } from '@/stores/main.ts'
+import { usePokemonStore } from '@/stores/pokemon.ts'
 
-  import SimpleCard from '@/components/SimpleCard.vue'
-  import NavBar from '@/components/NavBar.vue'
-  import InfoPage from '@/components/infoPage.vue'
+import SimpleCard from '@/components/SimpleCard.vue'
+import NavBar from '@/components/NavBar.vue'
+import InfoPage from '@/components/infoPage.vue'
+import ScreenLoader from '@/components/screenLoader.vue'
 
-  const mainStore = useMainStore()
-  const pokemonStore = usePokemonStore()
+const mainStore = useMainStore()
+const pokemonStore = usePokemonStore()
 
-  const endPageTarget = ref(null)
-  const endPageTargettIsVisibleIsVisible = ref(false)
+const endPageTarget = ref(null)
+const endPageTargettIsVisibleIsVisible = ref(false)
 
-  const currentCardGroup = ref(0)
-  const endPageVisibility = ref(true)
+const currentCardGroup = ref(0)
+const endPageVisibility = ref(true)
 
-  watch(endPageTargettIsVisibleIsVisible, ()=> {
-    if(endPageTargettIsVisibleIsVisible.value) {
-      mainStore.setPaginationLoader(true)
-      endPageVisibility.value = false
-      setTimeout(() => revealSection(currentCardGroup.value), 500)
-      currentCardGroup.value ++
-    }
-  })
-
-  const pokemonSpriteBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
-
-  function setGroup(index: number) {
-    const groupValidation = [
-      index <= 25,
-      index > 25 && index <= 50,
-      index > 50 && index <= 75,
-      index > 75 && index <= 100,
-      index > 100 && index <= 125,
-      index > 125 && index <= 150,
-      index > 150,
-    ]
-    return `${groupValidation.indexOf(true)}`
+watch(endPageTargettIsVisibleIsVisible, ()=> {
+  if(endPageTargettIsVisibleIsVisible.value) {
+    mainStore.setPaginationLoader(true)
+    endPageVisibility.value = false
+    setTimeout(() => revealSection(currentCardGroup.value), 500)
+    currentCardGroup.value ++
   }
-  function setRef(index: number) {
-    const refValidation = [
-      index == 25,
-      index == 50,
-      index == 75,
-      index == 100,
-      index == 125,
-      index == 150,
-      index == 150,
-    ]
-    return `${refValidation.indexOf(true) + 1}`
-  }
-  function setInitPagination() {
-    for(let index = 0; index < 7; index++) {
-      const groupArray = document.getElementsByName(`group-${index}`)
+})
 
-      groupArray.forEach(
-        (item) => index > 0 ? item.classList.add('hidden') : item.classList.remove('hidden')
-      )
-    }
-  }
-  function revealSection(index: number) {
+const pokemonSpriteBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
+
+function setGroup(index: number) {
+  const groupValidation = [
+    index <= 25,
+    index > 25 && index <= 50,
+    index > 50 && index <= 75,
+    index > 75 && index <= 100,
+    index > 100 && index <= 125,
+    index > 125 && index <= 150,
+    index > 150,
+  ]
+  return `${groupValidation.indexOf(true)}`
+}
+function setRef(index: number) {
+  const refValidation = [
+    index == 25,
+    index == 50,
+    index == 75,
+    index == 100,
+    index == 125,
+    index == 150,
+    index == 150,
+  ]
+  return `${refValidation.indexOf(true) + 1}`
+}
+function setInitPagination() {
+  for(let index = 0; index < 7; index++) {
     const groupArray = document.getElementsByName(`group-${index}`)
 
-    groupArray.forEach((item) => {
-      item.classList.remove('hidden')
-      item.classList.add('show-card')
-    })
-    mainStore.setPaginationLoader(false)
-    endPageVisibility.value = true
+    groupArray.forEach(
+      (item) => index > 0 ? item.classList.add('hidden') : item.classList.remove('hidden')
+    )
   }
+}
+function revealSection(index: number) {
+  const groupArray = document.getElementsByName(`group-${index}`)
 
-  pokemonStore.getPokemonList('kanto')
-  setTimeout(() => setInitPagination(), 100)
-  useIntersectionObserver(
-    endPageTarget,
-    ([entry], observerElement) => {
-      endPageTargettIsVisibleIsVisible.value = entry?.isIntersecting || false
-    },
-  )
+  groupArray.forEach((item) => {
+    item.classList.remove('hidden')
+    item.classList.add('show-card')
+  })
+  mainStore.setPaginationLoader(false)
+  endPageVisibility.value = true
+}
+
+pokemonStore.getPokemonList('kanto')
+setTimeout(() => setInitPagination(), 500)
+useIntersectionObserver(
+  endPageTarget,
+  ([entry], observerElement) => {
+    endPageTargettIsVisibleIsVisible.value = entry?.isIntersecting || false
+  },
+)
 </script>
 
 <template>
@@ -88,6 +89,7 @@
     activePage="home"
     :pokemon-count="pokemonStore.myPokemonTeam.length"
   />
+  <ScreenLoader :show="mainStore.pokemonListLoader" />
   <InfoPage v-if="mainStore.homePokemonListNotFound">
     <template v-slot:content>
       <img
