@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+
+const isDev = import.meta.env.DEV
 </script>
 
 <template>
-  <div class="debug-screens-" />
+  <div :class="[isDev ? 'debug-screens' : '']" />
     <RouterView />
 </template>

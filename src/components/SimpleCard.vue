@@ -35,9 +35,8 @@ function handleButtonAction() {
   <div
     class="
       bg-gray-500
-      border
-      border-gray-200
       rounded-lg
+      rounded-t-xl
       shadow
     "
   >
@@ -93,7 +92,3 @@ function handleButtonAction() {
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

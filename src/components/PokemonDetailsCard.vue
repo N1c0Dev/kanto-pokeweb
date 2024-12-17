@@ -72,7 +72,7 @@ function setBadgeTypeColor(type: string) {
     },
     electric: {
       bg: 'bg-amber-200',
-      text: 'text-amber-400',
+      text: 'text-amber-500',
     },
     grass: {
       bg: 'bg-lime-200',
@@ -80,7 +80,7 @@ function setBadgeTypeColor(type: string) {
     },
     ice: {
       bg: 'bg-sky-200',
-      text: 'text-sky-300',
+      text: 'text-sky-400',
     },
     fighting: {
       bg: 'bg-red-200',
@@ -92,11 +92,11 @@ function setBadgeTypeColor(type: string) {
     },
     ground: {
       bg: 'bg-amber-200',
-      text: 'text-amber-300',
+      text: 'text-amber-500',
     },
     flying: {
       bg: 'bg-indigo-200',
-      text: 'text-indigo-400',
+      text: 'text-indigo-500',
     },
     psychic: {
       bg: 'bg-pink-200',
@@ -143,9 +143,8 @@ function setBadgeTypeColor(type: string) {
       flex-col
       h-full
       bg-gray-500
-      border
-      border-gray-200
       rounded-lg
+      rounded-tl-xl
       shadow
       text-white
     "
@@ -509,8 +508,4 @@ function setBadgeTypeColor(type: string) {
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>
 
