@@ -1,4 +1,4 @@
-# nicolas-12-2024
+# Kanto pokéWeb
 
 # Node version
 * [node 22+](https://nodejs.org/es/)
